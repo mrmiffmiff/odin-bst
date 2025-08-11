@@ -93,6 +93,62 @@ class Tree {
         else return null;
     }
 
+    levelOrderForEach(callback) {
+        if (!callback || typeof (callback) !== 'function') {
+            throw new Error("Please provide a callback function");
+        }
+
+        let queue = [this.root];
+        while (queue.length > 0) {
+            let curr = queue.shift();
+            callback(curr);
+            if (curr.left) queue.push(curr.left);
+            if (curr.right) queue.push(curr.right);
+        }
+    }
+
+    inOrderForEach(callback) {
+        if (!callback || typeof (callback) !== 'function') {
+            throw new Error("Please provide a callback function");
+        }
+
+        function traverseAndExecute(node) {
+            if (node.left) traverseAndExecute(node.left);
+            callback(node);
+            if (node.right) traverseAndExecute(node.right);
+        }
+
+        traverseAndExecute(this.root);
+    }
+
+    preOrderForEach(callback) {
+        if (!callback || typeof (callback) !== 'function') {
+            throw new Error("Please provide a callback function");
+        }
+
+        function traverseAndExecute(node) {
+            callback(node);
+            if (node.left) traverseAndExecute(node.left);
+            if (node.right) traverseAndExecute(node.right);
+        }
+
+        traverseAndExecute(this.root);
+    }
+
+    postOrderForEach(callback) {
+        if (!callback || typeof (callback) !== 'function') {
+            throw new Error("Please provide a callback function");
+        }
+
+        function traverseAndExecute(node) {
+            if (node.left) traverseAndExecute(node.left);
+            if (node.right) traverseAndExecute(node.right);
+            callback(node);
+        }
+
+        traverseAndExecute(this.root);
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -107,4 +163,25 @@ console.log(test.find(3));
 console.log(test.find(9));
 console.log(test.find(324));
 console.log(test.find(6));
+test.prettyPrint();
+try {
+    test.levelOrderForEach(3);
+} catch (e) { console.log(e); }
+try {
+    test.levelOrderForEach((node) => {
+        node.data *= 2;
+    });
+} catch (e) { console.log(e); }
+test.prettyPrint();
+test.inOrderForEach((node) => {
+    node.data /= 2;
+});
+test.prettyPrint();
+test.preOrderForEach((node) => {
+    node.data *= 2;
+});
+test.prettyPrint();
+test.postOrderForEach((node) => {
+    node.data /= 2;
+});
 test.prettyPrint();
