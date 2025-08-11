@@ -180,6 +180,17 @@ class Tree {
         return true;
     }
 
+    rebalance() {
+        let newArray = [];
+        function inOrderArrayAdd(node) {
+            if (node.left) inOrderArrayAdd(node.left);
+            newArray.push(node.data);
+            if (node.right) inOrderArrayAdd(node.right);
+        }
+        inOrderArrayAdd(this.root);
+        this.root = this.constructor.buildTree(newArray);
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -190,6 +201,9 @@ test.insert(6);
 test.insert(21);
 test.insert(40);
 test.insert(41);
+test.prettyPrint();
+console.log(test.isBalanced());
+test.rebalance();
 test.prettyPrint();
 console.log(test.isBalanced());
 // console.log(test.height(2));
