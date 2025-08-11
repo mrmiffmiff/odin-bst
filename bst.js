@@ -164,6 +164,13 @@ class Tree {
         }
     }
 
+    depth(value, curr = this.root, count = 0) {
+        if (!curr) return null;
+        if (value < curr.data) return this.depth(value, curr.left, count + 1);
+        else if (value > curr.data) return this.depth(value, curr.right, count + 1);
+        else return count;
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -178,6 +185,12 @@ console.log(test.height(3));
 console.log(test.height(1));
 console.log(test.height(4));
 console.log(test.height(8));
+console.log(test.depth(2));
+console.log(test.depth(3));
+console.log(test.depth(1));
+console.log(test.depth(4));
+console.log(test.depth(8));
+console.log(test.depth(41));
 // test.delete(8);
 // test.delete(1);
 // test.delete(6);
