@@ -193,19 +193,31 @@ class Tree {
 
 }
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-test.prettyPrint();
-console.log(test.isBalanced());
-test.insert(5);
-test.insert(6);
-test.insert(21);
-test.insert(40);
-test.insert(41);
-test.prettyPrint();
-console.log(test.isBalanced());
-test.rebalance();
-test.prettyPrint();
-console.log(test.isBalanced());
+// const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+// test.prettyPrint();
+// console.log(test.isBalanced());
+// test.insert(5);
+// test.insert(6);
+// test.insert(21);
+// test.insert(40);
+// test.insert(41);
+// test.prettyPrint();
+// console.log(test.isBalanced());
+// test.rebalance();
+// test.prettyPrint();
+// console.log(test.isBalanced());
+// test.levelOrderForEach((node) => {
+//     console.log(node.data);
+// });
+// test.inOrderForEach((node) => {
+//     console.log(node.data);
+// });
+// test.preOrderForEach((node) => {
+//     console.log(node.data);
+// });
+// test.postOrderForEach((node) => {
+//     console.log(node.data);
+// });
 // console.log(test.height(2));
 // console.log(test.height(3));
 // console.log(test.height(1));
