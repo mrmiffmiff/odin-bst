@@ -55,6 +55,36 @@ class Tree {
         return node;
     }
 
+    delete(value, node = this.root) {
+        if (node === null) return node;
+
+        if (value < node.data) node.left = this.delete(value, node.left);
+        else if (value > node.data) node.right = this.delete(value, node.right);
+        else {
+            if (node.left === null) {
+                node = node.right;
+                return node;
+            }
+
+            if (node.right === null) {
+                node = node.left;
+                return node;
+            }
+
+            function inOrderSuccessor(curr) {
+                curr = curr.right;
+                while (curr !== null && curr.left !== null) curr = curr.left;
+                return curr;
+            }
+
+            let successor = inOrderSuccessor(node);
+            node.data = successor.data;
+            node.right = this.delete(successor.data, node.right);
+        }
+
+        return node;
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -62,4 +92,7 @@ test.insert(5);
 test.insert(6);
 test.insert(21);
 test.insert(40);
+test.delete(8);
+test.delete(1);
+test.delete(6);
 test.prettyPrint();
