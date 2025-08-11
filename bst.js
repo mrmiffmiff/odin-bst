@@ -85,6 +85,14 @@ class Tree {
         return node;
     }
 
+    find(value, node = this.root) {
+        if (!node) return null;
+        if (node.data === value) return node;
+        else if (value < node.data) return this.find(value, node.left);
+        else if (value > node.data) return this.find(value, node.right);
+        else return null;
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -95,4 +103,8 @@ test.insert(40);
 test.delete(8);
 test.delete(1);
 test.delete(6);
+console.log(test.find(3));
+console.log(test.find(9));
+console.log(test.find(324));
+console.log(test.find(6));
 test.prettyPrint();
