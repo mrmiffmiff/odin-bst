@@ -149,6 +149,21 @@ class Tree {
         traverseAndExecute(this.root);
     }
 
+    height(value, curr = this.root) {
+        if (!curr) return null;
+        if (value < curr.data) return this.height(value, curr.left);
+        else if (value > curr.data) return this.height(value, curr.right);
+        else {
+            function countToLowestLeaf(count, node) {
+                if (!node.left && !node.right) return count;
+                if (!node.left) return countToLowestLeaf(count + 1, node.right);
+                if (!node.right) return countToLowestLeaf(count + 1, node.left);
+                return Math.max(countToLowestLeaf(count + 1, node.left), countToLowestLeaf(count + 1, node.right));
+            }
+            return countToLowestLeaf(0, curr);
+        }
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -156,32 +171,38 @@ test.insert(5);
 test.insert(6);
 test.insert(21);
 test.insert(40);
-test.delete(8);
-test.delete(1);
-test.delete(6);
-console.log(test.find(3));
-console.log(test.find(9));
-console.log(test.find(324));
-console.log(test.find(6));
+test.insert(41);
 test.prettyPrint();
-try {
-    test.levelOrderForEach(3);
-} catch (e) { console.log(e); }
-try {
-    test.levelOrderForEach((node) => {
-        node.data *= 2;
-    });
-} catch (e) { console.log(e); }
-test.prettyPrint();
-test.inOrderForEach((node) => {
-    node.data /= 2;
-});
-test.prettyPrint();
-test.preOrderForEach((node) => {
-    node.data *= 2;
-});
-test.prettyPrint();
-test.postOrderForEach((node) => {
-    node.data /= 2;
-});
-test.prettyPrint();
+console.log(test.height(2));
+console.log(test.height(3));
+console.log(test.height(1));
+console.log(test.height(4));
+console.log(test.height(8));
+// test.delete(8);
+// test.delete(1);
+// test.delete(6);
+// console.log(test.find(3));
+// console.log(test.find(9));
+// console.log(test.find(324));
+// console.log(test.find(6));
+// test.prettyPrint();
+// try {
+//     test.levelOrderForEach(3);
+// } catch (e) { console.log(e); }
+// try {
+//     test.levelOrderForEach((node) => {
+//         node.data *= 2;
+//     });
+// } catch (e) { console.log(e); }
+// test.prettyPrint();
+// test.inOrderForEach((node) => {
+//     node.data /= 2;
+// });
+// test.prettyPrint();
+// test.preOrderForEach((node) => {
+//     node.data *= 2;
+// });
+// test.prettyPrint();
+// test.postOrderForEach((node) => {
+//     node.data /= 2;
+// });
