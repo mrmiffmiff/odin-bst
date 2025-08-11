@@ -171,26 +171,38 @@ class Tree {
         else return count;
     }
 
+    isBalanced(curr = this.root) {
+        if (!curr) return true;
+        let leftHeight = (curr.left) ? this.height(curr.left.data) : 0;
+        let rightHeight = (curr.right) ? this.height(curr.right.data) : 0;
+        if (Math.abs(leftHeight - rightHeight) > 1) return false;
+        if (!this.isBalanced(curr.left) || !this.isBalanced(curr.right)) return false;
+        return true;
+    }
+
 }
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+test.prettyPrint();
+console.log(test.isBalanced());
 test.insert(5);
 test.insert(6);
 test.insert(21);
 test.insert(40);
 test.insert(41);
 test.prettyPrint();
-console.log(test.height(2));
-console.log(test.height(3));
-console.log(test.height(1));
-console.log(test.height(4));
-console.log(test.height(8));
-console.log(test.depth(2));
-console.log(test.depth(3));
-console.log(test.depth(1));
-console.log(test.depth(4));
-console.log(test.depth(8));
-console.log(test.depth(41));
+console.log(test.isBalanced());
+// console.log(test.height(2));
+// console.log(test.height(3));
+// console.log(test.height(1));
+// console.log(test.height(4));
+// console.log(test.height(8));
+// console.log(test.depth(2));
+// console.log(test.depth(3));
+// console.log(test.depth(1));
+// console.log(test.depth(4));
+// console.log(test.depth(8));
+// console.log(test.depth(41));
 // test.delete(8);
 // test.delete(1);
 // test.delete(6);
